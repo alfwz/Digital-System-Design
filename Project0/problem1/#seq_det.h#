@@ -1,0 +1,37 @@
+//================================
+//Function: Sequence Detector
+//File name: seq_det.h
+//=================================
+
+#include "systemc.h"
+
+SC_MODULE(seq_det){
+	sc_in<bool> clock, reset, clear;
+	sc_in<bool> data_in;
+
+	sc_out<bool> data_out;
+
+	void prc_seq_det();
+	void prc_output();
+
+	sc_signal<bool> first, second, third, fourth;
+
+	SC_CTOR(seq_det){
+		SC_METHOD(prc_seq_det);
+			sensitive_pos<<clock;
+		SC_METHOD(prc_output);
+			sensitive<<first<<second<<third<<fourth;
+	}
+};
+
+void set_det :: prc_seq_det(){
+  if(!reset){
+    first= second=third=fourth=false;
+  }
+  if(clear){
+    data_out=false;
+  }
+  else{
+   
+  }
+}
